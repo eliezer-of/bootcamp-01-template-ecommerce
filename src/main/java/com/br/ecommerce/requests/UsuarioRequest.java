@@ -1,5 +1,6 @@
 package com.br.ecommerce.requests;
 
+import com.br.ecommerce.annotations.UniqueValue;
 import com.br.ecommerce.model.Usuario;
 
 import javax.validation.constraints.Email;
@@ -10,6 +11,7 @@ public class UsuarioRequest {
 
     @Email
     @NotBlank
+    @UniqueValue(fieldName = "login", domainClass = Usuario.class, message = "Já existe um email cadastrado com esse valor")
     private String login;
 
     @NotBlank
