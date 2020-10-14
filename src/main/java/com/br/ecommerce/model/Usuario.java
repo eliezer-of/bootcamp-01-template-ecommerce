@@ -1,5 +1,7 @@
 package com.br.ecommerce.model;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,7 +31,7 @@ public class Usuario {
 
     public Usuario(@Email @NotBlank String login, @NotBlank @Size(min = 6) String senha) {
         this.login = login;
-        this.senha = senha;
+        this.senha = new BCryptPasswordEncoder().encode(senha);
     }
 
     public Long getId() {
@@ -49,7 +51,6 @@ public class Usuario {
         return "Usuario{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
-                ", senha='" + senha + '\'' +
                 ", momentoDaCriacao=" + momentoDaCriacao +
                 '}';
     }
