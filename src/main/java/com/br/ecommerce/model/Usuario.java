@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 public class Usuario {
@@ -23,6 +25,8 @@ public class Usuario {
     @Size(min = 6)
     private String senha;
 
+    private LocalDateTime momentoDaCriacao = LocalDateTime.now();
+
     public Usuario(@Email @NotBlank String login, @NotBlank @Size(min = 6) String senha) {
         this.login = login;
         this.senha = senha;
@@ -38,5 +42,15 @@ public class Usuario {
 
     public String getSenha() {
         return senha;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", senha='" + senha + '\'' +
+                ", momentoDaCriacao=" + momentoDaCriacao +
+                '}';
     }
 }
