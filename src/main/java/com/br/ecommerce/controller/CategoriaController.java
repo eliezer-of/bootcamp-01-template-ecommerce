@@ -26,7 +26,7 @@ public class CategoriaController {
     public ResponseEntity<?> inserir (@Valid @RequestBody CategoriaRequest request,
                                       UriComponentsBuilder uriComponentsBuilder) {
 
-        Categoria categoria = request.toModel();
+        Categoria categoria = request.toModel(manager);
         manager.persist(categoria);
 
         return  ResponseEntity.created(uriComponentsBuilder.path("/api/categoria/{id}").

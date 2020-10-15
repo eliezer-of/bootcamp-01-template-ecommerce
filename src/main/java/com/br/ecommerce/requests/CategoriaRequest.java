@@ -1,9 +1,14 @@
 package com.br.ecommerce.requests;
 
+import com.br.ecommerce.annotations.ExistsValue;
 import com.br.ecommerce.annotations.UniqueValue;
 import com.br.ecommerce.model.Categoria;
+import org.springframework.util.Assert;
 
+import javax.persistence.EntityManager;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 public class CategoriaRequest {
 
@@ -11,6 +16,8 @@ public class CategoriaRequest {
     @UniqueValue(fieldName = "nome", domainClass = Categoria.class, message = "Já existe uma categoria cadastrada!")
     private String nome;
 
+    @Positive
+    @ExistsValue(fieldName = "id", domainClass = Categoria.class)
     private Long idCategoriaMae;
 
 
@@ -18,8 +25,8 @@ public class CategoriaRequest {
         this.nome = nome;
     }
 
-    public void setCategoriaMae(Long categoriaMae) {
-        this.idCategoriaMae = categoriaMae;
+    public void setIdCategoriaMae(Long idCategoriaMae) {
+        this.idCategoriaMae = idCategoriaMae;
     }
 
     @Override
@@ -30,11 +37,16 @@ public class CategoriaRequest {
                 '}';
     }
 
-    public Categoria toModel() {
-       Categoria categoria = new Categoria(nome);
-       if (idCategoriaMae != null) {
-           categoria.setCategoriaMae(categoria);
-       }
-       return  categoria;
+    public Categoria toModel(EntityManager manager) {
+
+        Categoria categoria = new Categoria(nome);
+
+        if(idCategoriaMae != null) {
+            Categoria categoriaMae = manager.find(Categoria.class,idCategoriaMae);
+            Assert.notNull(categoriaMae, "O id da categoria mae precisa ser válido");
+
+            categoria.setCategoriaMae(categoriaMae);
+        }
+        return categoria;
     }
 }
