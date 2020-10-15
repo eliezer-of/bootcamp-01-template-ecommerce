@@ -17,7 +17,7 @@ public class CategoriaRequest {
     private String nome;
 
     @Positive
-    @ExistsValue(fieldName = "id", domainClass = Categoria.class)
+    @ExistsValue(fieldName = "id", domainClass = Categoria.class , message = "A categoria mãe precisa estar cadastrada!")
     private Long idCategoriaMae;
 
 
