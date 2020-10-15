@@ -11,20 +11,20 @@ public class UsuarioRequest {
 
     @Email
     @NotBlank
-    @UniqueValue(fieldName = "login", domainClass = Usuario.class, message = "Já existe um email cadastrado com esse valor")
-    private String login;
+    @UniqueValue(fieldName = "email", domainClass = Usuario.class, message = "Já existe um email cadastrado com esse valor")
+    private String email;
 
     @NotBlank
     @Size(min = 6)
     private String senha;
 
-    public UsuarioRequest(@Email @NotBlank String login, @NotBlank @Size(min = 6) String senha) {
-        this.login = login;
+    public UsuarioRequest(@Email @NotBlank String email, @NotBlank @Size(min = 6) String senha) {
+        this.email = email;
         this.senha = senha;
     }
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
     public String getSenha() {
@@ -32,6 +32,6 @@ public class UsuarioRequest {
     }
 
     public Usuario toModel() {
-        return new Usuario(login, senha);
+        return new Usuario(email, senha);
     }
 }
