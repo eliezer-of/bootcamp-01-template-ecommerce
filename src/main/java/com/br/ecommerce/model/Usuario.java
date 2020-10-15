@@ -21,7 +21,7 @@ public class Usuario {
 
     @Email
     @NotBlank
-    private String login;
+    private String email;
 
     @NotBlank
     @Size(min = 6)
@@ -29,8 +29,11 @@ public class Usuario {
 
     private LocalDateTime momentoDaCriacao = LocalDateTime.now();
 
-    public Usuario(@Email @NotBlank String login, @NotBlank @Size(min = 6) String senha) {
-        this.login = login;
+    @Deprecated
+    public Usuario () {}
+
+    public Usuario(@Email @NotBlank String email, @NotBlank @Size(min = 6) String senha) {
+        this.email = email;
         this.senha = new BCryptPasswordEncoder().encode(senha);
     }
 
@@ -38,8 +41,8 @@ public class Usuario {
         return id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
     public String getSenha() {
@@ -50,7 +53,7 @@ public class Usuario {
     public String toString() {
         return "Usuario{" +
                 "id=" + id +
-                ", login='" + login + '\'' +
+                ", email='" + email + '\'' +
                 ", momentoDaCriacao=" + momentoDaCriacao +
                 '}';
     }

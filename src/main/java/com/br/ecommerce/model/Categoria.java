@@ -14,7 +14,6 @@ public class Categoria {
     private Long id;
 
     @NotBlank
-    @UniqueValue(fieldName = "nome", domainClass = Categoria.class, message = "Já existe uma categoria cadastrada!")
     private String nome;
 
     @ManyToOne()

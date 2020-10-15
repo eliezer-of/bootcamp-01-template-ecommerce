@@ -15,13 +15,13 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/api/usuario")
+@RequestMapping(value = "/api")
 public class UsuarioController {
 
     @Autowired
     EntityManager manager;
 
-    @PostMapping(value = "")
+    @PostMapping(value = "/usuario")
     @Transactional
     public ResponseEntity<?> inserir (@Valid @RequestBody UsuarioRequest request,
                                       UriComponentsBuilder uriComponentsBuilder) {
@@ -29,7 +29,7 @@ public class UsuarioController {
         Usuario usuario = request.toModel();
         manager.persist(usuario);
 
-        return  ResponseEntity.created(uriComponentsBuilder.path("api/usuario/{id}").
+        return  ResponseEntity.created(uriComponentsBuilder.path("/api/usuario/{id}").
                 buildAndExpand(usuario.getId()).toUri()).build();
     }
 

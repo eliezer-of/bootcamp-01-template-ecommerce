@@ -6,12 +6,15 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
 
-@Target(ElementType.FIELD)
-@Retention(RetentionPolicy.RUNTIME)
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
 @Documented
 @Constraint(validatedBy = {UniqueValueValidator.class})
+@Target({ FIELD})
+@Retention(RUNTIME)
 public @interface UniqueValue {
-    String message() default "{com.br.ecommerce.annotations.uniquevalue" + "message}";
+    String message() default "{com.br.ecommerce.beanvalidation.uniquevalue" + "message}";
 
     Class<?>[] groups() default {};
 
