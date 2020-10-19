@@ -105,4 +105,8 @@ public class Produto {
 
        this.imagemProdutos.addAll(imagens);
     }
+
+    public boolean pertenceAoUsuario(@NotNull Optional<Usuario> usuario) {
+        return this.donoDoProduto.equals(usuario.get());
+    }
 }

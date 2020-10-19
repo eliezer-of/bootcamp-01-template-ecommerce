@@ -7,10 +7,11 @@ import com.br.ecommerce.requests.ImagensRequest;
 import com.br.ecommerce.requests.ProdutoRequest;
 import com.br.ecommerce.security.UserService;
 import com.br.ecommerce.utils.Uploader;
-import com.br.ecommerce.utils.UploaderFake;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.persistence.EntityManager;
@@ -52,8 +53,14 @@ public class ProdutoController {
     public ResponseEntity<?> adicionarImagens (@PathVariable("id") Long id, @Valid ImagensRequest request,
                                                UriComponentsBuilder uriComponentsBuilder) {
 
-        Set<String> linksImagens = uploaderFake.enviar(request.getImagens());
+        Optional<Usuario> usuario = usuarioRepository.findByEmail(UserService.authenticated().getUsername());
         Produto produto = manager.find(Produto.class, id);
+
+        if (usuario.isEmpty() || !produto.pertenceAoUsuario(usuario)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+
+        Set<String> linksImagens = uploaderFake.enviar(request.getImagens());
         produto.associarImagens(linksImagens);
 
         manager.merge(produto);
