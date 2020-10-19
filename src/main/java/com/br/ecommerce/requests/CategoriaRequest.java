@@ -3,6 +3,7 @@ package com.br.ecommerce.requests;
 import com.br.ecommerce.annotations.ExistsValue;
 import com.br.ecommerce.annotations.UniqueValue;
 import com.br.ecommerce.model.Categoria;
+import com.br.ecommerce.security.UsuarioLogado;
 import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
@@ -17,7 +18,6 @@ public class CategoriaRequest {
     private String nome;
 
     @Positive
-    @ExistsValue(fieldName = "id", domainClass = Categoria.class , message = "A categoria mãe precisa estar cadastrada!")
     private Long idCategoriaMae;
 
 
@@ -43,7 +43,7 @@ public class CategoriaRequest {
 
         if(idCategoriaMae != null) {
             Categoria categoriaMae = manager.find(Categoria.class,idCategoriaMae);
-            Assert.notNull(categoriaMae, "O id da categoria mae precisa ser válido");
+            Assert.notNull(categoriaMae, "O id da categoria mãe precisa ser válido");
 
             categoria.setCategoriaMae(categoriaMae);
         }
