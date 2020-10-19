@@ -37,6 +37,9 @@ public class Produto {
     @OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
     private Set<CaracteristicasProduto> caracteristicas = new HashSet<>();
 
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+    private Set<ImagemProduto> imagemProdutos = new HashSet<>();
+
     @NotBlank
     @Size(max = 1000)
     private String descricao;
@@ -77,5 +80,29 @@ public class Produto {
 
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Produto{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", valor=" + valor +
+                ", quantidade=" + quantidade +
+                ", caracteristicas=" + caracteristicas +
+                ", imagemProdutos=" + imagemProdutos +
+                ", descricao='" + descricao + '\'' +
+                ", categoria=" + categoria +
+                ", donoDoProduto=" + donoDoProduto +
+                '}';
+    }
+
+    public void associarImagens(Set<String> linksImagens) {
+
+       Set<ImagemProduto> imagens =  linksImagens.stream()
+                .map(link -> new ImagemProduto(this, link))
+                .collect(Collectors.toSet());
+
+       this.imagemProdutos.addAll(imagens);
     }
 }
