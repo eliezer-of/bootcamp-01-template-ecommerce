@@ -3,6 +3,7 @@ package com.br.ecommerce.requests;
 import com.br.ecommerce.annotations.ExistsValue;
 import com.br.ecommerce.model.Categoria;
 import com.br.ecommerce.model.Produto;
+import com.br.ecommerce.model.Usuario;
 
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
@@ -13,6 +14,7 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ProdutoRequest {
 
@@ -69,9 +71,10 @@ public class ProdutoRequest {
                 '}';
     }
 
-    public Produto toModel(EntityManager manager) {
+    public Produto toModel(EntityManager manager, Optional<Usuario> usuario) {
+
         Categoria categoria = manager.find(Categoria.class, idCategoria);
-        return new Produto(nome, valor, quantidadeDisponivel, caracteristicas, descricao, categoria);
+        return new Produto(nome, valor, quantidadeDisponivel, caracteristicas, descricao, categoria, usuario);
     }
 
 }

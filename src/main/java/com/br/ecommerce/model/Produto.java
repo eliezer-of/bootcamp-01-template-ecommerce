@@ -12,6 +12,7 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -45,6 +46,11 @@ public class Produto {
     @ManyToOne
     private Categoria categoria;
 
+    @NotNull
+    @Valid
+    @ManyToOne
+    private Usuario donoDoProduto;
+
     @Deprecated
     public Produto() {
 
@@ -55,12 +61,13 @@ public class Produto {
                    @NotNull @Positive Integer quantidade,
                    @Valid @Size(min = 3) Collection<CaracteristicasProdutoRequest> caracteristicas,
                    @NotBlank @Size(max = 1000) String descricao,
-                   @NotNull @Valid Categoria categoria) {
+                   @NotNull @Valid Categoria categoria,@NotNull @Valid Optional<Usuario> usuario) {
         this.nome = nome;
         this.valor = valor;
         this.quantidade = quantidade;
         this.descricao = descricao;
         this.categoria = categoria;
+        this.donoDoProduto = usuario.get();
 
         this.caracteristicas.addAll(caracteristicas.stream().map(
                 caracteristica -> caracteristica.toModel(this)).collect(Collectors.toSet()));

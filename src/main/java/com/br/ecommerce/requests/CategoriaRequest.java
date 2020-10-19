@@ -3,6 +3,7 @@ package com.br.ecommerce.requests;
 import com.br.ecommerce.annotations.ExistsValue;
 import com.br.ecommerce.annotations.UniqueValue;
 import com.br.ecommerce.model.Categoria;
+import com.br.ecommerce.security.UsuarioLogado;
 import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
