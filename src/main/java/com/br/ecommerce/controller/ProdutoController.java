@@ -3,14 +3,12 @@ package com.br.ecommerce.controller;
 import com.br.ecommerce.model.Produto;
 import com.br.ecommerce.model.Usuario;
 import com.br.ecommerce.repository.UsuarioRepository;
+import com.br.ecommerce.requests.ImagensRequest;
 import com.br.ecommerce.requests.ProdutoRequest;
 import com.br.ecommerce.security.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.persistence.EntityManager;
@@ -40,6 +38,11 @@ public class ProdutoController {
 
         return  ResponseEntity.created(uriComponentsBuilder.path("/api/produto/{id}").
                 buildAndExpand(produto.getId()).toUri()).build();
+    }
+
+    @PostMapping(value = "produto/{id}/imagens")
+    public void adicionarImagens (@PathVariable("id") Long id, @Valid ImagensRequest request) {
+
     }
 
 }
