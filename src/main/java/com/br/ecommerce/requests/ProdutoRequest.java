@@ -4,13 +4,11 @@ import com.br.ecommerce.annotations.ExistsValue;
 import com.br.ecommerce.model.Categoria;
 import com.br.ecommerce.model.Produto;
 import com.br.ecommerce.model.Usuario;
+import io.jsonwebtoken.lang.Assert;
 
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +70,7 @@ public class ProdutoRequest {
     }
 
     public Produto toModel(EntityManager manager, Optional<Usuario> usuario) {
+        Assert.isTrue(usuario.isPresent(), "Usuário de cadastro não pode ser nulo");
 
         Categoria categoria = manager.find(Categoria.class, idCategoria);
         return new Produto(nome, valor, quantidadeDisponivel, caracteristicas, descricao, categoria, usuario);
