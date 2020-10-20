@@ -44,7 +44,7 @@ public class ProdutoController {
         Produto produto = request.toModel(manager, usuario);
         manager.persist(produto);
 
-        return  ResponseEntity.created(uriComponentsBuilder.path("/api/produto/{id}").
+        return ResponseEntity.created(uriComponentsBuilder.path("/api/produto/{id}").
                 buildAndExpand(produto.getId()).toUri()).build();
     }
 
@@ -65,7 +65,7 @@ public class ProdutoController {
 
         manager.merge(produto);
 
-        return  ResponseEntity.created(uriComponentsBuilder.path("/api/produto/{id}").
+        return ResponseEntity.created(uriComponentsBuilder.path("/api/produto/{id}").
                 buildAndExpand(produto.getId()).toUri()).build();
     }
 

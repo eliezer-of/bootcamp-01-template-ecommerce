@@ -107,6 +107,7 @@ public class Produto {
     }
 
     public boolean pertenceAoUsuario(@NotNull Optional<Usuario> usuario) {
+        Assert.isTrue(usuario.isPresent(), "Usuário não pode ser nulo!");
         return this.donoDoProduto.equals(usuario.get());
     }
 }
