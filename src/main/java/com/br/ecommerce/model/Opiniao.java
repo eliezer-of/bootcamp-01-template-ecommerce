@@ -6,10 +6,9 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Optional;
 
 @Entity
-public class Opniao {
+public class Opiniao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,10 +35,10 @@ public class Opniao {
     private Usuario usuario;
 
     @Deprecated
-    public Opniao() {}
+    public Opiniao() {}
 
-    public Opniao(@Min(1) @Max(5) int nota, @NotBlank String titulo, @NotBlank String descricao,
-                  @Valid @NotNull Produto produto, @Valid @NotNull Usuario usuario) {
+    public Opiniao(@Min(1) @Max(5) int nota, @NotBlank String titulo, @NotBlank String descricao,
+                   @Valid @NotNull Produto produto, @Valid @NotNull Usuario usuario) {
         this.nota = nota;
         this.titulo = titulo;
         this.descricao = descricao;
@@ -64,7 +63,7 @@ public class Opniao {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Opniao opniao = (Opniao) o;
+        Opiniao opniao = (Opiniao) o;
 
         if (titulo != null ? !titulo.equals(opniao.titulo) : opniao.titulo != null) return false;
         if (descricao != null ? !descricao.equals(opniao.descricao) : opniao.descricao != null) return false;

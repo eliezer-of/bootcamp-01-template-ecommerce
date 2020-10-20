@@ -1,6 +1,6 @@
 package com.br.ecommerce.controller;
 
-import com.br.ecommerce.model.Opniao;
+import com.br.ecommerce.model.Opiniao;
 import com.br.ecommerce.model.Produto;
 import com.br.ecommerce.model.Usuario;
 import com.br.ecommerce.repository.UsuarioRepository;
@@ -35,8 +35,8 @@ public class ProdutoOpiniaoController {
         Optional<Usuario> usuarioOptnante = usuarioRepository.findByEmail(UserService.authenticated().getUsername());
         Produto produto = manager.find(Produto.class, id);
 
-        Opniao opniao = request.toModel(produto, usuarioOptnante);
-        manager.persist(opniao);
+        Opiniao opiniao = request.toModel(produto, usuarioOptnante);
+        manager.persist(opiniao);
 
         return ResponseEntity.created(uriComponentsBuilder.path("/api/produto/{id}").
                 buildAndExpand(produto.getId()).toUri()).build();

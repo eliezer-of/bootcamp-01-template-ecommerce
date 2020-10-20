@@ -1,6 +1,6 @@
 package com.br.ecommerce.requests;
 
-import com.br.ecommerce.model.Opniao;
+import com.br.ecommerce.model.Opiniao;
 import com.br.ecommerce.model.Produto;
 import com.br.ecommerce.model.Usuario;
 import org.springframework.util.Assert;
@@ -27,8 +27,8 @@ public class OpiniaoRequest {
         this.descricao = descricao;
     }
 
-    public Opniao toModel(Produto produto, @NotNull Optional<Usuario> usuarioConsumidor) {
+    public Opiniao toModel(Produto produto, @NotNull Optional<Usuario> usuarioConsumidor) {
         Assert.isTrue(usuarioConsumidor.isPresent(), "Usuário optnante precisa ser válido!");
-        return new Opniao(nota, titulo, descricao, produto, usuarioConsumidor.get());
+        return new Opiniao(nota, titulo, descricao, produto, usuarioConsumidor.get());
     }
 }
