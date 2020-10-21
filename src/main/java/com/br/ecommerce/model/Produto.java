@@ -90,6 +90,30 @@ public class Produto {
         return nome;
     }
 
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public Set<CaracteristicasProduto> getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public Set<ImagemProduto> getImagemProdutos() {
+        return imagemProdutos;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
     @Override
     public String toString() {
         return "Produto{" +
