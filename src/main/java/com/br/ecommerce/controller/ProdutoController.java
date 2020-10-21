@@ -34,7 +34,7 @@ public class ProdutoController {
     @Autowired
     Uploader uploaderFake;
 
-    @PostMapping(value = "/produto")
+    @PostMapping(value = "/produtos")
     @Transactional
     public ResponseEntity<?> inserir (@Valid @RequestBody ProdutoRequest request,
                                       UriComponentsBuilder uriComponentsBuilder) {
@@ -48,7 +48,7 @@ public class ProdutoController {
                 buildAndExpand(produto.getId()).toUri()).build();
     }
 
-    @PostMapping(value = "produto/{id}/imagens")
+    @PostMapping(value = "produtos/{id}/imagens")
     @Transactional
     public ResponseEntity<?> adicionarImagens (@PathVariable("id") Long id, @Valid ImagensRequest request,
                                                UriComponentsBuilder uriComponentsBuilder) {

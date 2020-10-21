@@ -21,7 +21,7 @@ public class CategoriaController {
     @Autowired
     EntityManager manager;
 
-    @PostMapping(value = "/categoria")
+    @PostMapping(value = "/categorias")
     @Transactional
     public ResponseEntity<?> inserir (@Valid @RequestBody CategoriaRequest request,
                                       UriComponentsBuilder uriComponentsBuilder) {
