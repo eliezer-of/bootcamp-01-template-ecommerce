@@ -11,18 +11,18 @@ import java.util.Set;
 public class ProdutoDetalheResponse {
 
     private String nomeProduto;
-    private CaracteristicasProdutoResponse caracteristicas;
+    private Set<CaracteristicasProdutoResponse> caracteristicas;
     private String descricao;
     private BigDecimal preco;
-    private ImagensProdutoResponse imagens;
+    private Set<String> imagens;
     private Set<Object> opinioes;
 
     public ProdutoDetalheResponse(Produto produto) {
         this.nomeProduto = produto.getNome();
-        this.caracteristicas = new CaracteristicasProdutoResponse(produto.getCaracteristicas());
+        this.caracteristicas = produto.mapeiaCaracteristicas(CaracteristicasProdutoResponse::new);
         this.descricao = produto.getDescricao();
         this.preco = produto.getValor();
-        this.imagens = new ImagensProdutoResponse(produto.getImagemProdutos());
+        this.imagens = produto.mapeiaImagens(imagem -> imagem.getLink());
 
         Opinioes opinioes = produto.getOpinioes();
 
@@ -38,7 +38,7 @@ public class ProdutoDetalheResponse {
         return nomeProduto;
     }
 
-    public CaracteristicasProdutoResponse getCaracteristicas() {
+    public Set<CaracteristicasProdutoResponse> getCaracteristicas() {
         return caracteristicas;
     }
 
@@ -50,7 +50,7 @@ public class ProdutoDetalheResponse {
         return preco;
     }
 
-    public ImagensProdutoResponse getImagens() {
+    public Set<String> getImagens() {
         return imagens;
     }
 

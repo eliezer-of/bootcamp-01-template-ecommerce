@@ -11,6 +11,7 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Entity
@@ -153,5 +154,17 @@ public class Produto {
     public boolean pertenceAoUsuario(@NotNull Optional<Usuario> usuario) {
         Assert.isTrue(usuario.isPresent(), "Usuário não pode ser nulo!");
         return this.donoDoProduto.equals(usuario.get());
+    }
+
+
+
+    public <T> Set<T> mapeiaCaracteristicas(Function<CaracteristicasProduto,T> funcaoMapeadora) {
+        return this.caracteristicas.stream().map(funcaoMapeadora)
+                .collect(Collectors.toSet());
+    }
+
+    public <T> Set<T> mapeiaImagens(Function<ImagemProduto,T> funcaoMapeadora) {
+        return this.imagemProdutos.stream().map(funcaoMapeadora)
+                .collect(Collectors.toSet());
     }
 }

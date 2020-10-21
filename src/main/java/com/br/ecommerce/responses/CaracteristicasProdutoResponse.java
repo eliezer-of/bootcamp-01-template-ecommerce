@@ -2,18 +2,23 @@ package com.br.ecommerce.responses;
 
 import com.br.ecommerce.model.CaracteristicasProduto;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class CaracteristicasProdutoResponse {
 
-    Set<CaracteristicasProduto> caracteristicas = new HashSet<>();
 
-    public CaracteristicasProdutoResponse(Set<CaracteristicasProduto> caracteristicas) {
-        this.caracteristicas = caracteristicas;
+    private String nome;
+    private String descricao;
+
+
+    public CaracteristicasProdutoResponse(CaracteristicasProduto caracteristicasProduto) {
+        this.nome = caracteristicasProduto.getNome();
+        this.descricao = caracteristicasProduto.getDescricao();
     }
 
-    public Set<CaracteristicasProduto> getCaracteristicas() {
-        return caracteristicas;
+    public String getNome() {
+        return nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
     }
 }
