@@ -27,7 +27,7 @@ public class ProdutoOpiniaoController {
     @Autowired
     UsuarioRepository usuarioRepository;
 
-    @PostMapping(value = "produto/{id}/opiniao")
+    @PostMapping(value = "produtos/{id}/opiniao")
     @Transactional
     public ResponseEntity<?> adicionarOpiniao (@PathVariable("id") Long id, @Valid @RequestBody OpiniaoRequest request,
                                   UriComponentsBuilder uriComponentsBuilder) {
