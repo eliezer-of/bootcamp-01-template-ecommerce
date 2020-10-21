@@ -1,9 +1,7 @@
 package com.br.ecommerce.controller;
 
 import com.br.ecommerce.model.Produto;
-import com.br.ecommerce.repository.UsuarioRepository;
 import com.br.ecommerce.responses.ProdutoDetalheResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
