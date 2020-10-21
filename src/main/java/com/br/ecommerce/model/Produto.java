@@ -10,10 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -53,6 +50,13 @@ public class Produto {
     @Valid
     @ManyToOne
     private Usuario donoDoProduto;
+
+    @OneToMany(mappedBy = "produto")
+    @OrderBy("titulo asc")
+    private SortedSet<Pergunta> perguntas = new TreeSet<>();
+
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+    private Set<Opiniao> opinioes = new HashSet<>();
 
     @Deprecated
     public Produto() {
@@ -96,6 +100,14 @@ public class Produto {
 
     public Integer getQuantidade() {
         return quantidade;
+    }
+
+    public SortedSet<Pergunta> getPerguntas() {
+        return perguntas;
+    }
+
+    public Opinioes getOpinioes() {
+        return new Opinioes(this.opinioes);
     }
 
     public Set<CaracteristicasProduto> getCaracteristicas() {
