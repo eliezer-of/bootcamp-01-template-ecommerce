@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static  final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
 
     private static final String[] PUBLIC_MATCHERS = { "/**/auth/**" };
-    private static final String[] PUBLIC_MATCHERS_GET = { "/**/produto/{id:[0-9]+}" };
+    private static final String[] PUBLIC_MATCHERS_GET = { "/**/produtos/{id:[0-9]+}" };
     private static final String[] PUBLIC_MATCHERS_POST = { "/**/usuario" };
 
     @Override
