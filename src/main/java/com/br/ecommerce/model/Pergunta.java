@@ -35,6 +35,22 @@ public class Pergunta {
         this.momentoCriacao = LocalDateTime.now();
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public Usuario getDonoProduto() {
+        return produto.getDonoDoProduto() ;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
     @Override
     public String toString() {
         return "Pergunta{" +

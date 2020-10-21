@@ -6,6 +6,7 @@ import com.br.ecommerce.model.Usuario;
 import com.br.ecommerce.repository.UsuarioRepository;
 import com.br.ecommerce.requests.PerguntaRequest;
 import com.br.ecommerce.security.UserService;
+import com.br.ecommerce.service.email.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,9 @@ public class PerguntaController {
     @Autowired
     UsuarioRepository usuarioRepository;
 
+    @Autowired
+    EmailService emailService;
+
     @PostMapping(value = "produtos/{id}/pergunta")
     @Transactional
     public ResponseEntity<?> adicionarPergunta (@PathVariable("id") Long id,
@@ -38,6 +42,8 @@ public class PerguntaController {
 
         Pergunta pergunta = request.toModel(produto, usuario);
         manager.persist(pergunta);
+
+        emailService.enviarEmailNovaPergunta(pergunta);
 
         return ResponseEntity.created(uriComponentsBuilder.path("/api/produto/{id}").
                 buildAndExpand(produto.getId()).toUri()).build();

@@ -82,6 +82,14 @@ public class Produto {
         return id;
     }
 
+    public Usuario getDonoDoProduto() {
+        return donoDoProduto;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
     @Override
     public String toString() {
         return "Produto{" +
