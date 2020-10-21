@@ -9,13 +9,13 @@ import java.util.Set;
 public class ProdutoDetalheResponse {
 
     private String nomeProduto;
-    private Set<CaracteristicasProduto> caracteristicas;
+    private CaracteristicasProdutoResponse caracteristicas;
     private String descricao;
     private BigDecimal preco;
 
     public ProdutoDetalheResponse(Produto produto) {
         this.nomeProduto = produto.getNome();
-        this.caracteristicas = produto.getCaracteristicas();
+        this.caracteristicas = new CaracteristicasProdutoResponse(produto.getCaracteristicas());
         this.descricao = produto.getDescricao();
         this.preco = produto.getValor();
     }
@@ -24,7 +24,7 @@ public class ProdutoDetalheResponse {
         return nomeProduto;
     }
 
-    public Set<CaracteristicasProduto> getCaracteristicas() {
+    public CaracteristicasProdutoResponse getCaracteristicas() {
         return caracteristicas;
     }
 
