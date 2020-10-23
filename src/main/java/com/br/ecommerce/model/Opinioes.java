@@ -1,6 +1,7 @@
 package com.br.ecommerce.model;
 
-import java.util.OptionalDouble;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -18,10 +19,13 @@ public class Opinioes {
                 .collect(Collectors.toSet());
     }
 
-    public double media() {
+    public Double media() {
         Set<Integer> notas = mapeiaOpinioes(opiniao -> opiniao.getNota());
-        OptionalDouble media = notas.stream().mapToInt(nota -> nota).average();
-        return media.orElse(0.0);
+
+        double media = notas.stream().mapToInt(nota -> nota).average().orElse(0.0);
+        double mediaTratada = new BigDecimal(media).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
+
+        return mediaTratada;
     }
 
     public int total() {
