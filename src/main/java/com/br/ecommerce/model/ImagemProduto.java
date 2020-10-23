@@ -32,6 +32,10 @@ public class ImagemProduto {
         this.link = link;
     }
 
+    public String getLink() {
+        return link;
+    }
+
     @Override
     public String toString() {
         return "ImagemProduto{" +

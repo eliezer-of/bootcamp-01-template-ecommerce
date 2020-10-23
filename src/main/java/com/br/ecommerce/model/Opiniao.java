@@ -2,10 +2,7 @@ package com.br.ecommerce.model;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 @Entity
 public class Opiniao {
@@ -22,6 +19,7 @@ public class Opiniao {
     private String titulo;
 
     @NotBlank
+    @Size(max = 500)
     private String descricao;
 
     @ManyToOne
@@ -37,13 +35,25 @@ public class Opiniao {
     @Deprecated
     public Opiniao() {}
 
-    public Opiniao(@Min(1) @Max(5) int nota, @NotBlank String titulo, @NotBlank String descricao,
+    public Opiniao(@Min(1) @Max(5) int nota, @NotBlank String titulo, @Size(max = 500) @NotBlank String descricao,
                    @Valid @NotNull Produto produto, @Valid @NotNull Usuario usuario) {
         this.nota = nota;
         this.titulo = titulo;
         this.descricao = descricao;
         this.produto = produto;
         this.usuario = usuario;
+    }
+
+    public int getNota() {
+        return nota;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getDescricao() {
+        return descricao;
     }
 
     @Override

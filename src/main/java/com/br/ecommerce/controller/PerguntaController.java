@@ -16,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.Optional;
 
 @RestController
@@ -43,10 +44,11 @@ public class PerguntaController {
         Pergunta pergunta = request.toModel(produto, usuario);
         manager.persist(pergunta);
 
-        emailService.enviarEmailNovaPergunta(pergunta);
+        URI link = uriComponentsBuilder.path("/api/produto/{id}").buildAndExpand(produto.getId()).toUri();
 
-        return ResponseEntity.created(uriComponentsBuilder.path("/api/produto/{id}").
-                buildAndExpand(produto.getId()).toUri()).build();
+        emailService.enviarEmailNovaPergunta(pergunta , link);
+
+        return ResponseEntity.created(link).build();
     }
 
 }

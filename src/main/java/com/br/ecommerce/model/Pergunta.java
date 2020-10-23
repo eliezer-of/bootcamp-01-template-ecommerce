@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-public class Pergunta {
+public class Pergunta implements Comparable<Pergunta> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +27,11 @@ public class Pergunta {
     @Valid
     @NotNull
     private Usuario usuario;
+
+    @Deprecated
+    public Pergunta (){
+
+    }
 
     public Pergunta(@NotBlank String titulo, @Valid @NotNull Produto produto, @Valid @NotNull Usuario usuario) {
         this.titulo = titulo;
@@ -80,5 +85,11 @@ public class Pergunta {
         result = 31 * result + (produto != null ? produto.hashCode() : 0);
         result = 31 * result + (usuario != null ? usuario.hashCode() : 0);
         return result;
+    }
+
+
+    @Override
+    public int compareTo(Pergunta o) {
+        return this.titulo.compareTo(o.titulo);
     }
 }
