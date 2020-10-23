@@ -167,4 +167,10 @@ public class Produto {
         return this.imagemProdutos.stream().map(funcaoMapeadora)
                 .collect(Collectors.toSet());
     }
+
+    public <T extends Comparable<T>> SortedSet<T> mapeiaPerguntas(Function<Pergunta, T> funcaoMapeadora) {
+        return this.perguntas.stream().map(funcaoMapeadora)
+                .collect(Collectors.toCollection(TreeSet :: new));
+    }
+
 }

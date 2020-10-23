@@ -7,6 +7,7 @@ import com.br.ecommerce.model.Produto;
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
 
 public class ProdutoDetalheResponse {
 
@@ -16,6 +17,7 @@ public class ProdutoDetalheResponse {
     private BigDecimal preco;
     private Set<String> imagens;
     private Set<Object> opinioes;
+    private SortedSet<String> perguntas;
 
     public ProdutoDetalheResponse(Produto produto) {
         this.nomeProduto = produto.getNome();
@@ -31,6 +33,8 @@ public class ProdutoDetalheResponse {
                     "titulo",opiniao.getTitulo(),
                     "descricao",opiniao.getDescricao());
         });
+
+        this.perguntas = produto.mapeiaPerguntas(pergunta -> pergunta.getTitulo());
 
     }
 
@@ -56,5 +60,9 @@ public class ProdutoDetalheResponse {
 
     public Set<Object> getOpinioes() {
         return opinioes;
+    }
+
+    public SortedSet<String> getPerguntas() {
+        return perguntas;
     }
 }
