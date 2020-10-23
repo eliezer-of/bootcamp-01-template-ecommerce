@@ -18,6 +18,8 @@ public class ProdutoDetalheResponse {
     private Set<String> imagens;
     private Set<Object> opinioes;
     private SortedSet<String> perguntas;
+    private double mediaNotas;
+    private int total;
 
     public ProdutoDetalheResponse(Produto produto) {
         this.nomeProduto = produto.getNome();
@@ -35,6 +37,9 @@ public class ProdutoDetalheResponse {
         });
 
         this.perguntas = produto.mapeiaPerguntas(pergunta -> pergunta.getTitulo());
+
+        this.mediaNotas = opinioes.media();
+        this.total = opinioes.total();
 
     }
 
@@ -64,5 +69,13 @@ public class ProdutoDetalheResponse {
 
     public SortedSet<String> getPerguntas() {
         return perguntas;
+    }
+
+    public double getMediaNotas() {
+        return mediaNotas;
+    }
+
+    public int getTotal() {
+        return total;
     }
 }
