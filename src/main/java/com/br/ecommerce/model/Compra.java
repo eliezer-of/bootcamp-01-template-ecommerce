@@ -1,6 +1,8 @@
 package com.br.ecommerce.model;
 
 import com.br.ecommerce.enums.GatewayPagamento;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -68,5 +70,9 @@ public class Compra {
                 ", quantidade=" + quantidade +
                 ", usuarioComprador=" + usuarioComprador +
                 '}';
+    }
+
+    public ResponseEntity<?> urlRedirecionamento(UriComponentsBuilder uriComponentsBuilder) {
+        return this.gatewayPagamento.criarUrlRetorno(this, uriComponentsBuilder);
     }
 }

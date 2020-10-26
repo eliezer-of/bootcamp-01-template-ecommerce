@@ -53,28 +53,18 @@ public class CompraController {
         if (estoqueFoiAbatido) {
             GatewayPagamento gateway = request.getGateway();
             Compra compra = new Compra(produto, quantidade, usuarioComprador, gateway);
+
             manager.persist(compra);
 
             emailService.enviarEmailCompraRealizada(compra);
 
-            if (gateway.equals(GatewayPagamento.pagseguro)) {
-                UriComponents url = uriComponentsBuilder.path("/retorno-pagseguro/{id}").buildAndExpand(compra.getId());
-                URI link = URI.create("pagseguro.com/" + compra.getId() + "?redirectUrl=" + url);
-
-                return ResponseEntity.created(link).build();
-            } else {
-                UriComponents url = uriComponentsBuilder.path("/retorno-paypal/{id}").buildAndExpand(compra.getId());
-                URI link = URI.create("paypal.com/" + compra.getId() + "?redirectUrl=" + url);
-
-                return ResponseEntity.created(link).build();
-            }
+            return compra.urlRedirecionamento(uriComponentsBuilder);
         }
 
         BindException bindException = new BindException(request, "compraRequest");
-        bindException.reject(null, "Não foi possível finalizar a compra!");
+        bindException.reject(null, "Não foi possível finalizar a compra [estoque não permite]!");
 
         throw bindException;
-
     }
 
 }
