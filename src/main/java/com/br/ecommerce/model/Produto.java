@@ -173,4 +173,14 @@ public class Produto {
                 .collect(Collectors.toCollection(TreeSet :: new));
     }
 
+    public boolean abaterEstoque(@Positive  int quantidade) {
+        Assert.isTrue(quantidade > 0 , "Qauntidade deve ser positiva para alterar o estoque!");
+
+        if (quantidade <= this.quantidade) {
+            this.quantidade -= quantidade;
+            return true;
+        }
+
+        return false;
+    }
 }
