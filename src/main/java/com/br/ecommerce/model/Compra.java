@@ -1,5 +1,7 @@
 package com.br.ecommerce.model;
 
+import com.br.ecommerce.enums.GatewayPagamento;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -25,16 +27,25 @@ public class Compra {
     @NotNull
     @Valid
     private Usuario usuarioComprador;
+
+    @Enumerated
+    @NotNull
+    private GatewayPagamento gatewayPagamento;
     
     @Deprecated
     public Compra(){
     }
 
-    public Compra(@NotNull @Valid Produto produto, @Positive int quantidade,
-                  @NotNull @Valid Optional<Usuario> usuarioComprador) {
+    public Compra(@NotNull @Valid Produto produto, @Positive int quantidade, Optional<Usuario> usuarioComprador,
+                  @NotNull GatewayPagamento gatewayPagamento) {
         this.produto = produto;
         this.quantidade = quantidade;
         this.usuarioComprador = usuarioComprador.get();
+        this.gatewayPagamento = gatewayPagamento;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     @Override

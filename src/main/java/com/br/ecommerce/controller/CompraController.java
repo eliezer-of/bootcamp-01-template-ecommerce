@@ -7,6 +7,8 @@ import com.br.ecommerce.repository.UsuarioRepository;
 import com.br.ecommerce.requests.CompraRequest;
 import com.br.ecommerce.security.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,8 +33,8 @@ public class CompraController {
 
     @PostMapping(value = "/compras")
     @Transactional
-    public String inserir (@Valid @RequestBody CompraRequest request,
-                                      UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<?> inserir (@Valid @RequestBody CompraRequest request,
+                                           UriComponentsBuilder uriComponentsBuilder) throws BindException {
 
         Optional<Usuario> usuarioComprador = usuarioRepository.findByEmail(UserService.authenticated().getUsername());
 
@@ -42,12 +44,18 @@ public class CompraController {
         boolean estoqueFoiAbatido = produto.abaterEstoque(request.getQuantidade());
 
         if (estoqueFoiAbatido) {
-            Compra compra = new Compra(produto, quantidade, usuarioComprador);
+            Compra compra = new Compra(produto, quantidade, usuarioComprador, request.getGateway());
             manager.persist(compra);
-            return compra.toString();
+
+            return ResponseEntity.created(uriComponentsBuilder
+                            .path("/api/compras/{id}")
+                            .buildAndExpand(compra.getId()).toUri()).build();
         }
 
-        return "To do";
+        BindException bindException = new BindException(request, "compraRequest");
+        bindException.reject(null, "Não foi possível finalizar a compra!");
+
+        throw bindException;
 
     }
 
