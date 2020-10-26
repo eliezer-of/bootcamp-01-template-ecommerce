@@ -48,6 +48,18 @@ public class Compra {
         return id;
     }
 
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public Usuario getUsuarioComprador() {
+        return usuarioComprador;
+    }
+
     @Override
     public String toString() {
         return "Compra{" +
